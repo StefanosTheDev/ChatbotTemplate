@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Link to the external CSS file using Flask's url_for -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            background-color: #f9f9f9;
+        }
+        #flat-chat {
+            width: 900vw;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #confetti-canvas {
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+        }
+        /* Use the specific classes to target the button */
+        
+    </style>
+</head>
+<body>
+    <div id="flat-chat"></div>
+    <canvas id="confetti-canvas"></canvas>
+    <script src="{{ url_for('static', filename='extensions.js') }}"></script>
+    <script type="text/javascript">
+        (function(d, t) {
+            var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            v.onload = function() {
+                window.voiceflow.chat.load({
+                    verify: { projectID: '668231b917a95072bff6f08d' },
+                    url: 'https://general-runtime.voiceflow.com',
+                    versionID: 'production',
+                    user: {
+                        name: 'Demo user',
+                    },
+                    render: {
+                        mode: 'overlay',
+                    },
+                    autostart: false,
+                    assistant: {
+                        stylesheet: "http://localhost:5000/static/styles.css",// link to your self-hosted stylesheet
+                        extensions: [
+                            window.FormExtension // Reference the FormExtension
+                        ],
+                    },
+                });
+            }
+            document.addEventListener('DOMContentLoaded', function() {
+                var button = document.querySelector('.c-dzcdPv.vfrc-button.c-jjMiVY.vfrc-button--secondary.c-kCDKCe');
+                if (button) {
+                    button.style.backgroundColor = '#f0f0f0'; // Example style
+                    button.style.color = '#333'; // Example style
+                }
+            });
+            v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+        })(document, 'script');
+    </script>
+</body>
+</html>
